@@ -1,0 +1,30 @@
+{
+  "monorepo": true,
+  "root": ".",
+  "sourceRoot": "apps",
+  "compilerOptions": {
+    "tsConfigPath": "tsconfig.base.json"
+  },
+  "projects": {
+    "complaints-service": {
+      "type": "application",
+      "root": "apps/complaints-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/complaints-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/complaints-service/tsconfig.json",
+        "outputPath": "dist/apps/complaints-service"
+      }
+    },
+    "categories-service": {
+      "type": "application",
+      "root": "apps/categories-service",
+      "entryFile": "main",
+      "sourceRoot": "apps/categories-service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/categories-service/tsconfig.json",
+        "outputPath": "dist/apps/categories-service"
+      }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+syntax = "proto3";
+
+package complaints;
+
+import "categories.proto";
+
+service ComplaintsService {
+  // Создать жалобу
+  rpc CreateComplaint(CreateComplaintRequest) returns (ComplaintResponse);
+
+  // Получить жалобу по ID
+  rpc GetComplaintById(GetComplaintRequest) returns (ComplaintResponse);
+
+  // Получить список жалоб с пагинацией
+  rpc ListComplaints(ListComplaintsRequest) returns (ListComplaintsResponse);
+
+  // Обновить статус жалобы
+  rpc UpdateComplaintStatus(UpdateComplaintStatusRequest) returns (ComplaintResponse);
+
+  // Удалить жалобу
+  rpc DeleteComplaint(DeleteComplaintRequest) returns (DeleteComplaintResponse);
+
+  // Получить жалобы по категории
+  rpc GetComplaintsByCategory(GetComplaintsByCategoryRequest) returns (ListComplaintsResponse);
+
+  // Получить жалобы по статусу
+  rpc GetComplaintsByStatus(GetComplaintsByStatusRequest) returns (ListComplaintsResponse);
+}
+
+message CreateComplaintRequest {
+  string title = 1;
+  string description = 2;
+  string categoryId = 3;
+  string barcode = 4;
+}
+
+message GetComplaintRequest {
+  string id = 1;
+}
+
+message ListComplaintsRequest {
+  int32 page = 1;
+  int32 limit = 2;
+}
+
+message UpdateComplaintStatusRequest {
+  string id = 1;
+  string status = 2;
+}
+
+message DeleteComplaintRequest {
+  string id = 1;
+}
+
+message GetComplaintsByCategoryRequest {
+  string categoryId = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message GetComplaintsByStatusRequest {
+  string status = 1;
+  int32 page = 2;
+  int32 limit = 3;
+}
+
+message Complaint {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string categoryId = 4;
+  categories.Category category = 5;
+  string barcode = 6;
+  string status = 7;
+  string createdAt = 8;
+  string updatedAt = 9;
+}
+
+message ComplaintResponse {
+  Complaint complaint = 1;
+}
+
+message ListComplaintsResponse {
+  repeated ComplaintResponse complaints = 1;
+}
+
+message DeleteComplaintResponse {
+  bool success = 1;
+}
