@@ -10,26 +10,24 @@ interface RabbitmqModuleOptions {
 
 @Module({})
 export class RabbitmqModule {
-    static register(options: RabbitmqModuleOptions): DynamicModule {
+    static register({name, queue, urls}: RabbitmqModuleOptions): DynamicModule {
         return {
             module: RabbitmqModule,
             imports: [
                 ClientsModule.register([
                     {
-                        name: options.name,
+                        name,
                         transport: Transport.RMQ,
                         options: {
-                            urls: options.urls,
-                            queue: options.queue,
-                            queueOptions: {
-                                durable: true,
-                            },
+                            urls,
+                            queue,
+                            queueOptions: {durable: true},
                         },
                     },
                 ]),
             ],
             providers: [RabbitmqService],
-            exports: [ClientsModule, RabbitmqService],
+            exports: [RabbitmqService],
         };
     }
 }
